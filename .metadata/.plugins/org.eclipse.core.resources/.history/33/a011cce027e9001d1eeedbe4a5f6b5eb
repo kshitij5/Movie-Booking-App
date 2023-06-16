@@ -1,0 +1,6 @@
+package com.moviebookingapp.techacadeemy.entities;
+public enum EBookingtatus {
+	BOOKED, 
+	CONFIRMED, 
+	CANCELLED
+}

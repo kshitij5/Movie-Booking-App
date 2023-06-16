@@ -1,0 +1,58 @@
+<section id="detailMovie">
+    <div class="container">
+        <!-- <div class="section-title">
+            <h1><i class="icofont icofont-film"></i>{{ movie.movieName }}</h1>
+        </div> -->
+        <!-- <hr /> -->
+        <div class="details">
+            <div class="bg" [ngStyle]="{'background-image': 'linear-gradient(90deg, rgba(245,70,66, 0.75), rgba(8,83,156, 0.1)), url(' + movie.moviePosterUrl + ')'}"></div>
+            <div class="row flexbox-center ">
+                <div class="col-lg-5 text-lg-left text-center">
+                    <div class="movieDetails-content">
+                        <img src="{{movie.moviePosterUrl}}" alt="" />
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="movieDetails-content">
+                        <h1>{{ movie.movieName }}</h1>
+                        <p>{{ movie.movieGenre }}</p>
+                        <ul>
+                            <li>
+                                <div class="movieDetail-left">Movie:</div>
+                                <div class="movieDetail-right">
+                                    <a href="#">{{ movie.movieName }}</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="movieDetail-left">Time:</div>
+                                <div class="movieDetail-right">{{ movie.movieHours }}</div>
+                            </li>
+                            <li>
+                                <div class="movieDetail-left">Release:</div>
+                                <div class="movieDetail-right">{{ movie.movieDate }}</div>
+                            </li>
+                            <li>
+                                <div class="movieDetail-left">Language:</div>
+                                <div class="movieDetail-right">{{ movie.movieLanguage }}</div>
+                            </li>
+                            <li>
+                                <div class="movieDetail-left">Rating:</div>
+                                <div class="movieDetail-right">{{ movie.movieRating }}</div>
+                            </li>
+                            <li>
+                                <div class="movieDetail-left">Description:</div>
+                                <div class="movieDetail-right">
+                                    {{ movie.movieDescription }}
+                                </div>
+                            </li>
+                            
+                        </ul>
+
+                        <div class="book-btn"><a [routerLink]="['/theatre/view/', movie.movieId]" class="theme-btn"><i class="icofont-ticket"></i>
+                            Book Tickets</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

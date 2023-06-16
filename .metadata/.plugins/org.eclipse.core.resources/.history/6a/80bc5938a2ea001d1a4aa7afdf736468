@@ -1,0 +1,113 @@
+package com.moviebookingapp.techacadeemy.services;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.moviebookingapp.techacadeemy.entities.ESeatStatus;
+import com.moviebookingapp.techacadeemy.entities.Hall;
+import com.moviebookingapp.techacadeemy.entities.Movie;
+import com.moviebookingapp.techacadeemy.entities.Seat;
+import com.moviebookingapp.techacadeemy.entities.Show;
+import com.moviebookingapp.techacadeemy.entities.Theatre;
+import com.moviebookingapp.techacadeemy.exception.MovieNotFoundException;
+import com.moviebookingapp.techacadeemy.exception.ShowNotFoundException;
+import com.moviebookingapp.techacadeemy.repository.HallRepository;
+import com.moviebookingapp.techacadeemy.repository.MovieRepository;
+import com.moviebookingapp.techacadeemy.repository.ShowRepository;
+import com.moviebookingapp.techacadeemy.repository.TheatreRepository;
+
+@Service
+public class ShowServiceImpl implements ShowService {
+	@Autowired
+	private ShowRepository showRepository;
+	@Autowired
+	private TheatreRepository theatreRepository;
+	@Autowired
+	private HallRepository hallRepository;
+	@Autowired
+	private MoviesService moviesService;
+
+	@Override
+	public Show addShow(Show show, String theatreId) {
+		Theatre theatre = new Theatre();
+		if (theatreId != null) {
+			theatre = theatreRepository.findById(theatreId).get();
+			show.setTheatre(theatre);
+			showRepository.save(show);
+		}
+		return show;
+	}
+
+	@Override
+	public Show updateShow(Show show, String theatreId) {
+		Theatre theatre = new Theatre();
+		if (theatreId != null) {
+			theatre = theatreRepository.findByTheatreId(theatreId);
+			show.setTheatre(theatre);
+		}
+		showRepository.save(show);
+		return show;
+	}
+
+	@Override
+	public Show removeShow(String showid) {
+		Show s = showRepository.findById(showid).get();
+		showRepository.delete(s);
+		return s;
+	}
+
+	@Override
+	public Show viewShowByShowId(String showid) {
+		return showRepository.findById(showid).get();
+	}
+
+	@Override
+	public List<Show> viewShowByTheatreId(String theatreId) {
+		return showRepository.getAllByTheatre(theatreId);
+	}
+
+	@Override
+	public List<Show> viewAllShows() {
+		return showRepository.findAll();
+	}
+
+	@Override
+	public Show addMovieToShow(String movieId, String showId) throws MovieNotFoundException {
+		int rows = 5, column = 10;
+		double price = 150.0;
+
+		if (showId != null) {
+			Hall hall = new Hall();
+			hall.setColumnNumer(column);
+			hall.setRowNumer(rows);
+			List<Seat> seats = new ArrayList<>();
+			for (int i = 1; i <= rows; i++) {
+				Seat seat = new Seat();
+				for (int j = 1; j <= column; column++) {
+					if(j>8)price =+ 100.0;
+					seat = new Seat((String)(i + "" + j), i, (char) ('a' + j), ESeatStatus.AVAILABLE, price);
+				}
+				seats.add(seat);
+			}
+
+			hall.setSeats(seats);
+//		hall.setMovie(movie);
+//		hall.setShow(show);
+			hallRepository.save(hall);
+
+			Show show = new Show();
+			show = showRepository.findById(showId).get();
+			Movie movie = moviesService.getMoviesByMovieId(movieId);
+			show.setMovie(movie);
+			show.setHall(hall);
+
+			showRepository.save(show);
+		}
+
+		return showRepository.findById(showId).get();
+	}
+
+}

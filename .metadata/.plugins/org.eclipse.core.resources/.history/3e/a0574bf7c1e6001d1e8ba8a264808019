@@ -1,0 +1,5 @@
+package com.moviebookingapp.techacadeemy.entities;
+
+public class Seat {
+}
+

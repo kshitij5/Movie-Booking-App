@@ -1,0 +1,20 @@
+package com.moviebookingapp.techacadeemy.entities;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+
+public class Seat {
+	@Id
+	@Indexed(unique = true)
+	private int seatId;
+    @NotBlank
+	private char rowId;
+    @NotNull
+	private int rowNumer;
+    @NotNull
+	private boolean isBooked = false;
+}
+

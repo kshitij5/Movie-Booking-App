@@ -1,0 +1,20 @@
+package com.moviebookingapp.techacadeemy.services;
+
+import java.util.List;
+
+import com.moviebookingapp.techacadeemy.entities.Show;
+
+public interface ShowService {
+
+	public Show addShow(Show show, String theatreId);
+
+	public Show updateShow(Show show, String theatreId);
+
+	public Show removeShow(int showid);
+
+	public Show viewShow(int showid);
+
+	public List<Show> viewAllShows();
+
+	public List<Show> viewShowList(int theatreid);
+}

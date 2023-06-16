@@ -1,0 +1,122 @@
+package com.moviebookingapp.techacadeemy.services;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.moviebookingapp.techacadeemy.entities.Booking;
+import com.moviebookingapp.techacadeemy.entities.Seat;
+import com.moviebookingapp.techacadeemy.entities.Show;
+import com.moviebookingapp.techacadeemy.entities.Ticket;
+import com.moviebookingapp.techacadeemy.entities.User;
+import com.moviebookingapp.techacadeemy.exception.BookingNotFoundException;
+import com.moviebookingapp.techacadeemy.repository.BookingRepository;
+import com.moviebookingapp.techacadeemy.repository.MovieRepository;
+import com.moviebookingapp.techacadeemy.repository.ShowRepository;
+import com.moviebookingapp.techacadeemy.repository.TicketRepository;
+
+@Service
+public class BookingServiceImpl implements BookingService {
+
+	@Autowired
+	private BookingRepository bookingRepository;
+	@Autowired
+	MovieRepository moviesRepository;
+	@Autowired
+	ShowRepository showRepository;
+	@Autowired
+	TicketRepository ticketRepository;
+//	@Autowired
+//	QueryClass query;
+
+	@Override
+	public Booking addBooking(Booking booking, Integer showId) throws BookingNotFoundException {
+		User user = new User();
+		Show show=new Show();
+		/*
+		 * if (bookingRepository.existsById(booking.getTransactionId())) { throw new
+		 * BookingNotFoundException("Booking with this transcationId is already done");
+		 * } else {}
+		 */
+		if(showId!=null) {
+			//todo: ucomment either of any next line
+				//customer = custoRepository.getOne(customerId);
+//				show=showRepository.findById(showId).get();
+				show.setBooking(booking);
+				//booking.setCustomer(customer);
+				booking.setShow(show);
+		}
+			bookingRepository.save(booking);
+			showRepository.save(show);
+		return bookingRepository.findById(booking.getBookingId()).get();
+	}
+
+	@Override
+	public Booking updateBooking(Booking booking) throws BookingNotFoundException {
+		bookingRepository.save(booking);
+		return bookingRepository.findById(booking.getBookingId()).get();
+	}
+
+
+//	@Override
+	public List<Booking> showAllBookings(int movieid) throws BookingNotFoundException {
+//		List<Booking> bk = query.getAllByMovieId(movieid);
+		/*
+		 * if (bk.size() == 0) throw new BookingNotFoundException("No bookings found");
+		 */
+//		return bk;
+		return null;
+	}
+
+//	@Override
+//	public List<Booking> showAllBookings(LocalDate bookingdate) throws BookingNotFoundException {
+//		List<Booking> bkList = new ArrayList<>();
+//		for (Booking booking : bookingRepository.findAll()) {
+//			if (booking.getBookingDate() != null && booking.getBookingDate().isEqual(bookingdate)) {
+//				bkList.add(booking);
+//			}
+//		}
+//		if (bkList.size() == 0)
+//			throw new BookingNotFoundException("No bookings found");
+//		else {
+//			return bkList;
+//		}
+//	}
+
+	@Override
+	public double calculateTotalCost(int bookingid) {
+		List<Ticket> tickets = ticketRepository.findAll();
+		Set<Seat> Seats = new HashSet<>();
+		for (Ticket ticket : tickets) {
+			if (bookingid == ticket.getBooking().getBookingId()) {
+				Seats.addAll(ticket.getSeats());
+			}
+		}
+		double amount = 0;
+		for (Seat seat : Seats) {
+			amount = amount + seat.getPrice();
+		}
+		Booking booking = bookingRepository.findById(bookingid).get();
+		booking.setTotalCost(amount);
+		bookingRepository.save(booking);
+		return amount;
+	}
+
+	@Override
+	public List<Booking> viewBookingList() throws BookingNotFoundException {
+		List<Booking> bk = bookingRepository.findAll();
+		/*
+		 * if (bk.size() == 0) throw new BookingNotFoundException("No bookings found");
+		 */
+		return bk;
+	}
+
+	@Override
+	public Booking viewBooking(int bookingid) throws BookingNotFoundException {
+		return bookingRepository.findById(bookingid).get();
+	}
+
+}

@@ -1,0 +1,40 @@
+<div class="container d-flex" *ngIf="Movie && Payment && Show">
+
+    <div class="main card rounded-5 align-items-center justify-content-center col-md-4 offset-md-4 mt-3">
+
+        <div class="card-title mt-3">
+            <h2>Movie Ticket Overview</h2>
+        </div>
+
+        <div>
+            <div class="row g-0 mb-3">
+                <div class="col-md-5">
+                    <img src="{{Movie.moviePosterUrl}}" class="img-fluid" alt="...">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <h1 class="card-title font-weight-bold">{{Movie.movieName}}</h1>
+                        <h5 class="card-text mb-0 text-muted">{{Movie.movieGenre}}</h5>
+                        <h5 class="card-text text-muted">Timing: {{ Show.showDate |date:'EE, d MMM'}}.
+                            &nbsp;
+                            {{Show.showStartTime |date:'hh:mm'}} - {{Show.showEndTime |date:'hh:mm'}}</h5>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: rgb(46, 59, 73); color: white;width: 109%;">
+            <div class="ml-4 mt-3 mr-4">
+                <h2>Confirmation</h2>
+                <h4>You are about to pay for {{Movie.movieName}} tickets to {{Movie.movieName}}.</h4>
+            </div>
+        </div>
+
+        <div class="mt-3 mb-2 ">
+            <button class="btn btn-success rounded-pill" [routerLink]="['/payment/movieticket',Payment.paymentID]">PAY
+                INR {{Payment.amount}}</button>
+        </div>
+
+    </div>
+
+</div>

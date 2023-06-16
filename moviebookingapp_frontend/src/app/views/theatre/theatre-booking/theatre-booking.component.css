@@ -1,0 +1,82 @@
+* {
+    color: #000000;
+}
+.container {
+    width: 100vw;
+    /* background-color: #ee0101; */
+}
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.theatreList{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.theatreList-item {
+    margin: bottom -20px;
+}
+
+.theatreList-name {
+    margin-bottom: 0px;
+}
+.icofont {
+    font-size: 25px;
+}
+
+.movies-container {
+    padding-top: 20px;
+    padding-bottom: 15px;
+    display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0),
+                    rgb(0, 0, 0) 80%);
+}
+
+.movies-container h1 {
+    font-size: xx-large;color: rgb(255, 255, 255);
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.movies-container p {
+    font-weight: 700;
+    color: rgba(228, 228, 228, 0.733);
+}
+
+.full-width {
+    width: 99vw;
+    height: 30vh;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.bg {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: .5;
+    background-position: 15% 15%;
+}
+
+.ticket-count {
+    text-align: end;
+    font-weight: 500;
+}
+
+.unavailable {
+    margin-top: 20vh;
+    text-align: center;
+    justify-content: center;
+}

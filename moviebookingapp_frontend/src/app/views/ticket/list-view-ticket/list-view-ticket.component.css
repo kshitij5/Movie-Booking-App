@@ -1,0 +1,43 @@
+* {
+    color: #000000;
+}
+
+img {
+    scale: 0.5;
+    border-radius: 25px;
+    box-shadow: 15px 15px 15px -10px rgba(0, 0, 0, 0.75);
+}
+
+.poster {
+    margin-top: -105px;
+    margin-bottom: -105px;
+}
+
+.container {
+    width: 100vw;
+    /* background-color: #ee0101; */
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theatreList {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.icofont {
+    font-size: 25px;
+}
+
+.full-width {
+    width: 99vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}

@@ -1,0 +1,26 @@
+package com.moviebookingapp.techacadeemy.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.moviebookingapp.techacadeemy.entities.Theatre;
+import com.moviebookingapp.techacadeemy.exception.TheatreNotFoundException;
+import com.moviebookingapp.techacadeemy.repository.HallRepository;
+
+public class HallController {
+
+	Logger logger = LoggerFactory.getLogger(TheatreController.class);
+	@Autowired
+	private HallRepository hallRepository;
+	
+	@GetMapping("/search/{hallId}")
+	public ResponseEntity<Hall> findTheatreByTheatreId(@PathVariable int hallId) throws TheatreNotFoundException {
+
+		logger.info("-------Hall Found with Hall id" + hallId + "---------");
+		return ResponseEntity.ok(hallRepository.findById(hallId).get());
+	}
+}

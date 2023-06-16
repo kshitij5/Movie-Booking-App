@@ -1,0 +1,10 @@
+package com.moviebookingapp.techacadeemy.entities;
+
+public enum ESeatStatus {
+	BOOKED, 
+	AVAILABLE, 
+	BLOCKED
+}
+
+package com.moviebookingapp.techacadeemy.entities;
+

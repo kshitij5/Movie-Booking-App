@@ -1,0 +1,13 @@
+package com.moviebookingapp.techacadeemy.entities;
+
+import java.time.LocalDateTime;
+
+public class Show {
+
+	private int showId;
+	private String showName;
+//	private LocalDateTime showStartTime;
+//	private LocalDateTime showEndTime;
+	private Movie movie;
+	private Theatre theatre;
+}

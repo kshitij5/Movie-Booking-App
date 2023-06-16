@@ -1,0 +1,14 @@
+package com.moviebookingapp.techacadeemy.repository;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+/**
+ * 
+ * @author Thejesh
+ * @category ScreenRepository
+ *
+ */
+
+public interface ScreenRepository extends MongoRepository<Screen, Integer> {
+
+}

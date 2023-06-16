@@ -1,0 +1,16 @@
+package com.moviebookingapp.techacadeemy.entities;
+
+import java.time.LocalDateTime;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "show")
+public class Show {
+
+	private int showId;
+	private String showName;
+//	private LocalDateTime showStartTime;
+//	private LocalDateTime showEndTime;
+	private Movie movie;
+	private Theatre theatre;
+}

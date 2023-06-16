@@ -1,0 +1,14 @@
+package com.moviebookingapp.techacadeemy.services;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.moviebookingapp.techacadeemy.entities.Movie;
+
+@Service
+public interface MoviesService {
+	public List<Movie> getAllMovies();
+	public List<Movie> getMoviesByName();
+	public Movie updateTicketStatus();
+}

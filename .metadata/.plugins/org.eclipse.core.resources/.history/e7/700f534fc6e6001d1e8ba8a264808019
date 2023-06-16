@@ -1,0 +1,12 @@
+package com.moviebookingapp.techacadeemy.entities;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "theatre")
+public class Theatre {
+    @Id
+    private long theatreId;
+    private String theatreName;
+    private String theatreCity;
+
+}

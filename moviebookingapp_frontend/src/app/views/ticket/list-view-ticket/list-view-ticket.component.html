@@ -1,0 +1,31 @@
+<div class="main-wrapper">
+    <div class="theatreList full-width">
+        <div class="container overflow-auto" style="height: 100vh">
+            <div class=" m-2" *ngFor="let booking of bookings">
+                <a [routerLink]="['#']">
+                    <div class="row g-0 ">
+                        <div class="poster col-md-6">
+                            <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"> -->
+                            <img src="{{booking.movie.moviePosterUrl!=null ? booking.movie.moviePosterUrl :'
+                                https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}}"
+                                alt="No image Uploaded" />
+                        </div>
+                        <div class="col-md-6">
+                            <div class=" ml-2">
+                                <h2 class="mb-0" style="font-weight:700">{{ booking.movie != null ?
+                                    booking.movie.movieName:"Sample"}}</h2>
+                                <p class="text-muted mb-0">Hall : {{booking.hallId}}</p>
+                                <p class="text-muted mb-0">Show Start Date - Show End Date</p>
+                                <p class="text-muted ">{{booking.noOfTickets}} tickets booked | INR
+                                    {{booking.totalCost}}</p>
+                                <p>STATUS: {{ booking.bookingStatus }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <hr />
+            </div>
+        </div>
+    </div>
+
+</div>

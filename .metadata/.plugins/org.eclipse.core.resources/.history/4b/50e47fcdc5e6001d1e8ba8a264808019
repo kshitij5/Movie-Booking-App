@@ -1,0 +1,12 @@
+package com.moviebookingapp.techacadeemy.entities;
+
+import org.springframework.data.annotation.Id;
+
+public class Seat {
+	@Id
+	private int seatId;
+	private char rowId;
+	private int rowNumer;
+	private boolean seatStatus;
+}
+

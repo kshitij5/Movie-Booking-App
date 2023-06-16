@@ -1,0 +1,18 @@
+package com.moviebookingapp.techacadeemy.services;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.moviebookingapp.techacadeemy.entities.Movie;
+import com.moviebookingapp.techacadeemy.entities.Ticket;
+
+@Service
+public interface MoviesService {
+	public List<Movie> getAllMovies();
+	public ResponseEntity<?> updateTicketStatus();
+	public ResponseEntity<?> bookTicketByMovieName(Ticket tickets);
+	public ResponseEntity<?> getMoviesByName(String moviename);
+	public ResponseEntity<?> deleteMoviesByNameId(String moviename, String id);
+}

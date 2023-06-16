@@ -1,0 +1,36 @@
+package com.moviebookingapp.techacadeemy.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.moviebookingapp.techacadeemy.entities.Ticket;
+import com.moviebookingapp.techacadeemy.exception.MovieNotFoundException;
+import com.moviebookingapp.techacadeemy.services.MoviesService;
+import com.moviebookingapp.techacadeemy.services.TicketService;
+
+public class TicketController {
+
+	Logger logger = LoggerFactory.getLogger(MovieController.class);
+
+	@Autowired
+	priate TicketService ticketService;
+
+	@PostMapping("/{moviename}/add")
+	public ResponseEntity<?> addMovie(@PathVariable String moviename, @RequestBody Ticket tickets)
+			throws MovieNotFoundException {
+		return moviesService.bookTicketByMovieName(moviename, tickets);
+	}
+
+	@PutMapping("/{moviename}/update/{ticketId}")
+	public ResponseEntity<?> updateTicketStatus(@PathVariable String moviename, @PathVariable String ticketId)
+			throws MovieNotFoundException {
+		return moviesService.updateTicketStatus(moviename, ticketId);
+	}
+
+}

@@ -1,0 +1,19 @@
+package com.moviebookingapp.techacadeemy.services;
+
+import java.util.List;
+
+import com.moviebookingapp.techacadeemy.entities.Booking;
+import com.moviebookingapp.techacadeemy.exception.BookingNotFoundException;
+
+public interface BookingService {
+	public Booking addBooking(Booking booking, String customerId, Integer showId) throws BookingNotFoundException;
+
+	public List<Booking> viewBookingList() throws BookingNotFoundException;
+
+	public Booking updateBooking(Booking booking) throws BookingNotFoundException;
+
+	public Booking viewBooking(int bookingid) throws BookingNotFoundException;
+
+	public List<Booking> showAllBookings(int movieid) throws BookingNotFoundException;
+
+}

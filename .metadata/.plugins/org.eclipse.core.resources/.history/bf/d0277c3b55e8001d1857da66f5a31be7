@@ -1,0 +1,13 @@
+package com.moviebookingapp.techacadeemy.services;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public interface TicketService {
+	public Ticket addTicket(Ticket ticket,Integer bookingId) throws TicketNotFoundException;
+
+	public Ticket findTicket(int ticketId);
+
+	List<Ticket> viewTicketList() throws TicketNotFoundException;
+
+}

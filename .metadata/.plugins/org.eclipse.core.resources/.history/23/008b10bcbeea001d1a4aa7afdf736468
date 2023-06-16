@@ -1,0 +1,41 @@
+package com.moviebookingapp.techacadeemy.entities;
+
+import java.util.List;
+
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+
+@Document("booking")
+public class Booking {
+    @Id
+	@Indexed(unique = true)
+	private String bookingId;
+	@NotBlank
+	private int noOfTickets;
+    @NotBlank
+	private double totalCost;
+    @NotBlank
+	private EBookingstatus bookingStatus;
+	@DocumentReference
+	private Movie movie;
+	@DocumentReference
+	private Theatre theatre;
+    @NotBlank
+	private User user;
+    @NotBlank
+	private List<Ticket> ticket;
+}

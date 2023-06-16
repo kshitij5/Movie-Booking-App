@@ -1,0 +1,40 @@
+<div class="register-form">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Theatre Id</label>
+            <input type="text" formControlName="theatreId" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f['theatreId'].errors }" />
+            <div *ngIf="submitted && f['theatreId'].errors" class="invalid-feedback">
+                <div *ngIf="f['theatreId'].errors['required']">Id is required</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Theatre Name</label>
+            <input type="text" formControlName="theatreName" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f['theatreName'].errors }" />
+            <div *ngIf="submitted && f['theatreName'].errors" class="invalid-feedback">
+                <div *ngIf="f['theatreName'].errors['required']">Name is required</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Theatre City</label>
+            <input type="text" formControlName="theatreCity" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f['theatreCity'].errors }" />
+            <div *ngIf="submitted && f['theatreCity'].errors" class="invalid-feedback">
+                <div *ngIf="f['theatreCity'].errors['required']">URL is required</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add Theatre</button>
+            <button type="button" (click)="onReset()" class="btn btn-warning float-right">
+                Reset
+            </button>
+        </div>
+
+        <div *ngIf="submitted" class="alert alert-success">Theatre submitted successfully</div>
+        <div *ngIf="errorMessage!=''" class="alert alert-danger">Couldn&#39;t add the Theatre</div>
+    </form>
+</div>

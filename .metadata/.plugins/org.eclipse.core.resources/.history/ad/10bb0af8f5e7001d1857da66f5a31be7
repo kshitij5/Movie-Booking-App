@@ -1,0 +1,25 @@
+package com.moviebookingapp.techacadeemy.entities;
+
+import java.time.LocalDateTime;
+
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "show")
+public class Show {
+
+    @Id
+	@Indexed(unique = true)
+	private int showId;
+    @NotBlank
+	private String showName;
+	private LocalDateTime showStartTime;
+	private LocalDateTime showEndTime;
+    @NotBlank
+	private Movie movie;
+    @NotBlank
+	private Theatre theatre;
+}

@@ -1,0 +1,82 @@
+package com.moviebookingapp.techacadeemy.services;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
+
+import com.moviebookingapp.techacadeemy.entities.Booking;
+import com.moviebookingapp.techacadeemy.entities.ESeatStatus;
+import com.moviebookingapp.techacadeemy.entities.Seat;
+import com.moviebookingapp.techacadeemy.entities.Show;
+import com.moviebookingapp.techacadeemy.entities.Ticket;
+import com.moviebookingapp.techacadeemy.entities.User;
+import com.moviebookingapp.techacadeemy.exception.BookingNotFoundException;
+import com.moviebookingapp.techacadeemy.repository.BookingRepository;
+import com.moviebookingapp.techacadeemy.repository.MovieRepository;
+import com.moviebookingapp.techacadeemy.repository.SeatRepository;
+import com.moviebookingapp.techacadeemy.repository.ShowRepository;
+import com.moviebookingapp.techacadeemy.repository.TicketRepository;
+
+@Service
+public class BookingServiceImpl implements BookingService {
+
+	@Autowired
+	private BookingRepository bookingRepository;
+	@Autowired
+	MovieRepository moviesRepository;
+	@Autowired
+	ShowRepository showRepository;
+	@Autowired
+	TicketRepository ticketRepository;
+	@Autowired
+	SeatRepository seatRepository;
+
+	@Override
+	public List<Booking> viewBookingList() throws BookingNotFoundException {
+		List<Booking> bk = bookingRepository.findAll();
+		/*
+		 * if (bk.size() == 0) throw new BookingNotFoundException("No bookings found");
+		 */
+		return bk;
+	}
+
+	// TODO : rectify --> save ticket for each seat--->update ticket status to
+	// booked, then create booking for all ticket
+	@Override
+	public Booking addBooking(Booking booking) throws BookingNotFoundException {
+		ticketRepository.saveAll(booking.getTicket());
+		
+		for(Ticket ticket: booking.getTicket()) {
+			Seat seat = seatRepository.findById(ticket.getSeat().getSeatId()).get();
+			seat.setStatus(ESeatStatus.BOOKED);
+			seatRepository.save(seat);
+		}
+		bookingRepository.save(booking);
+		return bookingRepository.findById(booking.getBookingId()).get();
+	}
+
+	@Override
+	public Booking updateBooking(Booking booking) throws BookingNotFoundException {
+		bookingRepository.save(booking);
+		return bookingRepository.findById(booking.getBookingId()).get();
+	}
+
+	@Override
+	public List<Booking> showAllBookingsByMovieId(String movieid) throws BookingNotFoundException {
+		List<Booking> bk = new ArrayList<>();
+		List<Booking> bookings = bookingRepository.findAll();
+		for (Booking booking : bookings) {
+			if (booking.getShow().getMovie().getMovieId() == movieid) {
+				bk.add(booking);
+			}
+		}
+		return bk;
+	}
+
+}

@@ -1,0 +1,12 @@
+spring.data.mongodb.database=moviebookingapp_db
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+
+# App Properties
+moviebookingapp.app.jwtCookieName= moviebookingapp
+moviebookingapp.app.jwtSecret= moviebookingappSecretKey
+moviebookingapp.app.jwtExpirationMs= 86400000
+
+spring.kafka.producer.bootstrap-servers = localhost:9092
+spring.kafka.producer.key-serializer = org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer = org.springframework.kafka.support.serializer.JsonSerializer

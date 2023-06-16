@@ -1,0 +1,39 @@
+package com.moviebookingapp.techacadeemy.entities;
+
+import java.time.LocalDateTime;
+import java.util.Set;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "show")
+public class Show {
+
+    @Id
+	@Indexed(unique = true)
+	private int showId;
+    @NotBlank
+	private String showName;
+	private LocalDateTime showStartTime;
+	private LocalDateTime showEndTime;
+    @DocumentReference
+	private Movie movie;
+    @DocumentReference
+	private Theatre theatre;
+//    @NotEmpty
+//	private Screen screen;
+}

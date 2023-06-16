@@ -1,0 +1,129 @@
+<div class="container">
+    <header class="jumbotron">
+        ADMIN DASHBOARD
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 card content">
+                <h1>Create Theatre</h1>
+                <hr>
+                <app-add-theatre></app-add-theatre>
+            </div>
+            <div class="col-md-6 card content">
+                <h1>Map Movie to Theatre</h1><!-- Form starts -->
+                <hr>
+                <form [formGroup]="mapMoviesForm" (ngSubmit)="mapMovies()">
+                    <div class="form-group">
+                        <label>Select Movie</label>
+                        <select class="form-control" formControlName="movieId" (change)="changeMovieId($event)"
+                            required>
+                            <option value="">Choose Movie</option>
+                            <option *ngFor="let movie of movies" [value]="movie.movieId">{{movie.movieName}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Theatre</label>
+                        <select class="form-control" (change)="getShowsByTheatreId($event)" required>
+                            <option value="">Choose Theatre</option>
+                            <option *ngFor="let theatre of theaters" [value]="theatre.theatreId">{{theatre.theatreName}}
+                                : {{theatre.theatreCity}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" *ngIf="theaters">
+                        <label>Select Show</label>
+                        <select class="form-control" formControlName="showId" (change)="changeShowId($event)" required>
+                            <option value="">Choose Show</option>
+                            <option *ngFor="let show of shows" [value]="show.showId">{{show.showName}}</option>
+                        </select>
+                    </div>
+
+                    <!-- todo: 3tabs---select movie---select theatre---select show, then click on map -->
+                    <button class="btn btn-primary btn-block">Map Movie to Theatre</button>
+                </form>
+
+                <div *ngIf="isMapSuccessful" class="alert alert-success">Movie mapped successfully</div>
+                <div *ngIf="errorMessage!=''" class="alert alert-danger">Movie mapped failed</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 card">
+                <h1>Create Movie</h1>
+                <hr>
+                <app-add-movie></app-add-movie>
+            </div>
+
+            <div class="col-md-6 card content">
+                <h1>View Booked Ticket</h1>
+                <hr>
+                <ul class="ticket-list">
+                    <div class="container overflow-auto" style="height: 80vh">
+                        <div *ngFor="let booking of bookings">
+                            <div class="">
+                                <h2 class="mb-0" style="font-weight:700">{{ booking.movie != null ?
+                                    booking.movie.movieName:"Sample"}}</h2>
+                                <p class="text-muted mb-0">Hall : {{booking.hallId}}</p>
+                                <p class="text-muted mb-0">Show Start Date - Show End Date</p>
+                                <p class="text-muted ">{{booking.noOfTickets}} tickets booked | INR
+                                    {{booking.totalCost}}</p>
+                                <p>STATUS: {{ booking.bookingStatus }}</p>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 card content">
+                <!-- <h1>Create Theatre</h1> -->
+                <hr>
+                <!-- <app-add-theatre></app-add-theatre> -->
+            </div>
+            <div class="col-md-6 card content">
+                <h1>Update Ticket Status</h1><!-- Form starts -->
+                <hr>
+                <form [formGroup]="updateStatus" (ngSubmit)="updateTicketStatus()">
+
+                    <div class="form-group">
+                        <label>Select Theatre</label>
+                        <select class="form-control" (change)="getShowsByTheatreId($event)" required>
+                            <option value="">Choose Theatre</option>
+                            <option *ngFor="let theatre of theaters" [value]="theatre.theatreId">{{theatre.theatreName}}
+                                : {{theatre.theatreCity}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" *ngIf="theaters">
+                        <label>Select Show</label>
+                        <select class="form-control" (change)="choseShow($event)" required>
+                            <option value="">Choose Show</option>
+                            <option *ngFor="let show of shows" [value]="show">{{show.showName}}</option>
+                        </select>
+                    </div>
+
+                    <p *ngIf="selectedShow">Its current status is:<strong>
+                            {{this.selectedShow.ticketStatus!=null?this.selectedShow.ticketStatus:"Not selected"}}
+                        </strong></p>
+
+                    <div class="form-group" *ngIf="theaters">
+                        <label>Set Status to: </label>
+                        <select class="form-control" formControlName="show" (change)="changeticketStatus($event)" required>
+                            <option value="">Choose Show</option>
+                            <option *ngFor="let ticket of eticketStatus" [value]="ticket">{{ticket}}</option>
+                        </select>
+                    </div>
+
+                    <!-- todo: 3tabs---select movie---select theatre---select show, then click on map -->
+                    <button class="btn btn-primary btn-block">Map Movie to Theatre</button>
+                </form>
+
+                <div *ngIf="isUpdateSuccessful" class="alert alert-success">Ticket updated successfully</div>
+                <div *ngIf="errorMessage!=''" class="alert alert-danger">Ticket updated failed</div>
+            </div>
+        </div>
+    </div>
+</div>

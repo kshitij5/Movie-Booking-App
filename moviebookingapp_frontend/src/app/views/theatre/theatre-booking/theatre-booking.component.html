@@ -1,0 +1,48 @@
+<div class="main-wrapper">
+
+    <div class="full-width movies-container" *ngIf="movie">
+        <div class="bg" [ngStyle]="{'background-image': ' url(' + movie.moviePosterUrl + ')'}">
+        </div>
+        <div class="container">
+            <div class="col">
+                <h1>{{movie.movieName}}</h1>
+                <div class="row movie-detail">
+                    <div class="col-6">
+                        <p>UA rated | {{movie.movieRating}} stars</p>
+                    </div>
+                    <div class="col-6">
+                        <p>{{movie.movieGenre}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div *ngIf="shows.length==0" class="unavailable">Movie not yet Available in Cinema Halls</div>
+
+    <div class="theatreList" >
+        <div class="overflow-auto" style="height: 100vh">
+            <div class="theatreList-item m-2" *ngFor="let show of shows">
+                <a [routerLink]="['/hall/view/', show.showId, show.hall.hallId]">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <div class="theatreList-info">
+                                <h2 class="theatreList-name" style="font-weight:700">{{ show.theatre.theatreName }}</h2>
+                                <p class="theatreList-city text-muted">{{ show.theatre.theatreCity }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="ticket-count col-md-4 text-muted">
+                            {{show.noAvailableTicket!=null?show.noAvailableTicket:50}} tickets
+                            available</div>
+                        <div class="col-md-2" style="text-align:center;">
+                            <i class="icofont icofont-caret-right"></i>
+                        </div>
+                    </div>
+                </a>
+                <hr />
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,20 @@
+package com.moviebookingapp.techacadeemy.services;
+
+import java.util.List;
+
+import com.moviebookingapp.techacadeemy.entities.Theatre;
+import com.moviebookingapp.techacadeemy.exception.TheatreNotFoundException;
+
+public interface TheatreService {
+	public List<Theatre> getAllTheatres() throws TheatreNotFoundException;
+
+	public Theatre findTheatres(int theatreId);
+
+	public Theatre addTheatre(Theatre t) throws TheatreNotFoundException;
+
+	public Theatre updateTheatre(Theatre t);
+
+	public List<Theatre> deleteTheatreById(int theatreId);
+	
+	public List<Theatre> findTheatresByMovie(String movieId) throws TheatreNotFoundException;
+}

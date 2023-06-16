@@ -1,0 +1,119 @@
+<div class="center" style="height: 90vh; background-color: #c2000000;">
+
+    <div class="top-nav full-width bg-dark  d-flex">
+        <div class="container">
+            <div class="row movie-detail justify-content-around align-self-center" *ngIf="movie">
+                <div class="col">
+                    <p style="font-size: 1.5em;"> {{movie.movieName}}</p>
+
+                    <strong class="text-muted">{{show.theatre.theatreName}} - {{show.theatre.theatreCity}} |
+                        {{movie.movieHours}} | {{ show.showDate |date:'EE, d MMM'}} &nbsp; {{show.showStartTime
+                        |date:'hh:mm'}} -
+                        {{show.showEndTime |date:'hh:mm'}} | </strong>
+                </div>
+
+                <div>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="minus btn btn-outline-secondary"
+                            (click)="onMinus(normalTicket,'normalTicket')"><i class="icofont-minus"></i></button>
+                        <button type="button" class="btn btn-info"><i style="font-size:12px;"
+                                class="icofont-ticket"></i>{{normalTicket}}</button>
+                        <button type="button" class="plus btn btn-outline-secondary"
+                            (click)="onPlus(normalTicket,'normalTicket')"><i class="icofont-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container mt-5" *ngIf="seats">
+        <!-- <small class="text-dark">All eyes this way!</small> -->
+        <div style="scale:0.3; margin-bottom: 25px;">
+            <img class="screen" [src]="'assets/img/screen-thumb.png'" alt="image">
+            <div class="shdw"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2 dummy1">
+                <div class="moviehall">
+                    <div class="container" *ngIf="seats">
+                        <div class="moviehall">
+                            <div class="row">
+                                <div class="col-md-4 mt-2" *ngFor="let item of demo; let i = index">
+                                    <div class="occupied seat d-flex" style="color: white;">
+                                        <div class="seat-number align-self-center fs-5">{{i+1}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mt-3">
+                <div class="moviehall">
+                    <div class="container" *ngIf="seats">
+                        <div class="moviehall">
+                            <div class="row">
+                                <div class="col-md-2 offset-md-0 mt-2" *ngFor="let showseat of seats; let i = index">
+                                    <div [ngClass]="{'':showseat.status =='AVAILABLE','vip':showseat.price==150 && !showseat.active,'selected': showseat.active,'occupied':showseat.status !='AVAILABLE'}"
+                                        class="seat d-flex" (click)="onSelected(showseat)" style="color: white;">
+                                        <div class="seat-number align-self-center fs-5">{{i+1}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 dummy2">
+                <div class="moviehall">
+                    <div class="container" *ngIf="seats">
+                        <div class="moviehall">
+                            <div class="row">
+                                <div class="col-md-4 mt-2" *ngFor="let item of demo; let i = index">
+                                    <div class="occupied seat d-flex" style="color: white;">
+                                        <div class="seat-number align-self-center fs-5">{{i+1}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><div class="col-md-2"></div>
+
+            <br><br>
+
+            <ul class="showcase mt-5">
+                <li>
+                    <div class="seat"></div>
+                    <small>Available</small>
+                </li>
+
+                <li>
+                    <div class="seat selected"></div>
+                    <small>Selected</small>
+                </li>
+
+                <li>
+                    <div class="seat occupied"></div>
+                    <small>Occupied</small>
+                </li>
+                <li>
+                    <div class="seat vip"></div>
+                    <small>VIP</small>
+                </li>
+            </ul>
+
+        </div>
+
+
+        <div class="bottom-nav full-width bg-dark d-flex" style="bottom: 0;">
+            <div class="container">
+                <div class="row justify-content-around">
+                    <h2>You have selected {{normalTicket}} Tickets for Rs. {{totalTicketPrice}}</h2>
+                    <button class="btn btn-success rounded-pill" (click)="onBooking()">Book Ticket</button>
+                </div>
+            </div>
+        </div>
+    </div>

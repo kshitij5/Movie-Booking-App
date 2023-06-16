@@ -1,0 +1,33 @@
+package com.moviebookingapp.techacadeemy.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.moviebookingapp.techacadeemy.entities.Movie;
+import com.moviebookingapp.techacadeemy.entities.Ticket;
+import com.moviebookingapp.techacadeemy.exception.MovieNotFoundException;
+
+public interface MoviesService {
+	public List<Movie> getAllMovies();
+
+	public Movie addMovie(Movie movieModel);
+
+	public Movie updateMovie(Movie movie) throws MovieNotFoundException;
+
+	public ResponseEntity<?> bookTicketByMovieName(String moviename, Ticket tickets);
+
+	public List<Movie> getMoviesByMovieName(String moviename);
+
+	public List<Movie> viewMovieList(String theatreid);
+
+	public Movie getMoviesByMovieId(String movieId);
+
+	public Movie deleteMoviesByNameId(String moviename, String id)throws MovieNotFoundException;
+
+	public ResponseEntity<?> updateTicketStatus(String moviename, String ticketId)throws MovieNotFoundException;
+
+	public Movie addMovieToShow(Movie movie, Integer showId) throws MovieNotFoundException;
+}

@@ -1,0 +1,19 @@
+package com.moviebookingapp.techacadeemy.entities;
+
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "theatre")
+public class Theatre {
+    @Id
+	@Indexed(unique = true)
+    private long theatreId;
+    @NotBlank
+    private String theatreName;
+    @NotBlank
+    private String theatreCity;
+
+}

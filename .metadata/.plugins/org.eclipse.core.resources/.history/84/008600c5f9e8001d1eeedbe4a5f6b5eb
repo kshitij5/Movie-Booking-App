@@ -1,0 +1,143 @@
+package com.moviebookingapp.techacadeemy.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.moviebookingapp.techacadeemy.entities.Movie;
+import com.moviebookingapp.techacadeemy.entities.Show;
+import com.moviebookingapp.techacadeemy.entities.Ticket;
+import com.moviebookingapp.techacadeemy.exception.MovieNotFoundException;
+import com.moviebookingapp.techacadeemy.payload.response.MessageResponse;
+import com.moviebookingapp.techacadeemy.repository.MovieRepository;
+import com.moviebookingapp.techacadeemy.repository.ShowRepository;
+import com.moviebookingapp.techacadeemy.repository.TicketRepository;
+
+@Service
+public class MoviesServiceImpl implements MoviesService {
+	
+	@Autowired
+	private MovieRepository movieRepository;
+	@Autowired
+	private ShowRepository showRepository;
+
+
+	@Override
+	public List<Movie> getAllMovies() {
+		return movieRepository.findAll();
+	}
+
+	@Override
+	public List<Movie> getMoviesByMovieName(String moviename) {
+		if (movieRepository.existsByMovieNameContainingIgnoreCase(moviename)) {
+			List<Movie> movies = movieRepository
+					.findByMovieNameContainingIgnoreCase(moviename);
+			return ResponseEntity.ok().body(movieModel);
+		} else
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Movie doesn't exist in Database"));
+	}
+
+	@Override
+	public ResponseEntity<?> updateTicketStatus(String moviename, String ticketId) {
+
+		if (!movieRepository.existsByMovieNameContainingIgnoreCase(moviename))
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Movie doesn't exist in Database"));
+
+		List<Movie> movieModel = movieRepository.findByMovieNameContainingIgnoreCase(moviename);
+//		movieModel.setTicketStatus(ticket);
+		
+
+		
+//		movieRepository.save(movieModel);
+		return ResponseEntity.ok().body(new MessageResponse("Ticket status updated successflly"));
+
+	}
+
+	@Override
+	public Movie deleteMoviesByNameId(String moviename, String movieId) {
+
+		Movie movie = movieRepository.findById(movieId).get();
+//		List<Show> shows = showrepository.findAll();
+//		for (Show show : shows) {
+//			if (show.getMovie()!=null && show.getMovie().getMovieId() == movieId) {
+//				show.setMovie(null);
+//			}
+//		}
+		movieRepository.delete(movie);
+		return movie;
+		
+//		
+//		
+//		if (!movieRepository.existsByMovieNameContainingIgnoreCase(moviename))
+//			return ResponseEntity.badRequest().body(new MessageResponse("Error: Movie doesn't exist in Database"));
+//		movieRepository.deleteById(id);
+//		return ResponseEntity.ok().body(new MessageResponse("Movie deleted successflly"));
+	}
+
+	@Override
+	public Movie addMovie(Movie movieModel) {
+		return movieRepository.save(movieModel);
+	}
+
+	@Override
+	public ResponseEntity<?> bookTicketByMovieName(String moviename, Ticket tickets) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Movie getMoviesByMovieId(String movieId) {
+		return movieRepository.findById(movieId).get();
+	}
+
+	@Override
+	public Movie updateMovie(Movie movie) throws MovieNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Movie> viewMovieList(String theatreid) throws MovieNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Movie addMovieToShow(Movie movie, Integer showId) throws MovieNotFoundException {
+
+		Show show=new Show();
+		if (showId != null) {
+			show = showRepository.findById(showId).get();
+			movie.setShow(show);
+		}
+		movieRepository.save(movie);
+		return movieRepository.findByMovieId(movie.getMovieId());
+	}
+
+//	@Override
+//	public ResponseEntity<?> bookTicketByMovieName(String moviename, Ticket tickets) {
+//		if (!movieRepository.existsByMovieNameContainingIgnoreCase(moviename))
+//			return ResponseEntity.badRequest().body(new MessageResponse("Error: Movie doesn't exist in Database"));
+//
+//		Movie movieModel = movieRepository.findByMovieNameContainingIgnoreCase(moviename);
+//		
+//		if (!movieModel.getTicketStatus().equals("BOOK ASAP"))
+//			return ResponseEntity.badRequest().body(new MessageResponse("Error: No tickets available for the movie"));
+//
+//		if (movieModel.getNumberOfTickets() < tickets.getNoOfTickets()) {
+//			return ResponseEntity.badRequest().body(new MessageResponse(
+//					"Error: Only " + movieModel.getNumberOfTickets() + " tickets available for the movie"));
+//		}
+//
+//		movieModel.setNumberOfTickets((movieModel.getNumberOfTickets() - tickets.getNoOfTickets()));
+//
+//		movieRepository.save(movieModel);
+//		ticketRepository.save(tickets);
+//		return ResponseEntity.ok().body(new MessageResponse("Movie booked successfully"));
+//
+//	}
+
+}
